@@ -6,23 +6,23 @@ test.beforeEach(async ({ page }) => {
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-test.describe('Actions with owner page', () => {
-  test('Should allow me to add new owner', async ({ page }) => {
-    await page.locator('.ownerTab').click()
+test.describe('Actions with vets page', () => {
+  test('Should allow me to add new veterinarian', async ({ page }) => {
+    await page.locator('.vetsTab').click()
     await page.locator('a[routerlink="/vets/add"]').click();
 
-    await expect(page.locator('.addOwner')).toBeDisabled();
+    await expect(page.locator('.addVet')).toBeDisabled();
 
     await page.locator('#firstName').fill('Iryna');
     await page.locator('#lastName').fill('Hnatiuk');
     await page.locator('#type').fill('dentistry');
-    await page.locator('.addOwner').click()
+    await page.locator('.saveVet').click()
     
     await delay(2000)
   });
 
   test('Check if a new veterinarian has been added', async ({ page }) => {
-    await page.locator('.vetTab').click()
+    await page.locator('.vetsTab').click()
     await page.locator('a[routerlink="/vets"]').click();
 
     await delay(3000);
@@ -30,7 +30,7 @@ test.describe('Actions with owner page', () => {
   });
 
   test('Check vet edit', async ({ page }) => {
-    await page.locator('.vetTab').click()
+    await page.locator('.vetsTab').click()
     await page.locator('a[routerlink="/vets"]').click();
     await delay(3000);
 
@@ -58,7 +58,7 @@ test.describe('Actions with pet types page', () => {
 
     await page.locator('.addPet').click();
     await page.locator('#name').fill('frog');
-    await page.locator('.form-group > .addType').click();
+    await page.locator('.form-group > .saveType').click();
 
     await expect(page.locator('tr:last-child > td > input')).toHaveAttribute('ng-reflect-model', 'frog');
     await delay(1000);
